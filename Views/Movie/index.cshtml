@@ -1,16 +1,18 @@
 @model IEnumerable< MvcMovie.Models.Movie>
+
 @{
-    ViewData["Title"] = "Homepage Movie";
+    ViewData["Title"] = "HOMEMOVIE";
 }
 
-<h4> All Movie </h4>
-<div class="row">
+<h4 "> All Movie </h4>
+<div class=" row">
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th>
                     @Html.DisplayNameFor(m=>m.Id)
                 </th>
+                <th></th>
                 <th>
                     @Html.DisplayNameFor(m=>m.Title)
                 </th>
@@ -23,25 +25,29 @@
                 <th>
                     @Html.DisplayNameFor(m=>m.Price)
                 </th>
-                <th>
-
-                </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var movie in Model)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(m=>movie.Id)</td>
+        @foreach (var movie in Model)
+        {
+                    <tr>
+                        <td>@Html.DisplayFor(m=>movie.Id)</td>
+                        <td><img src=@Html.DisplayFor(m=>movie.Url) width=" 200" height="250"></img></td>
                     <td>@Html.DisplayFor(m=>movie.Title)</td>
                     <td>@Html.DisplayFor(m=>movie.ReleaseDate)</td>
                     <td>@Html.DisplayFor(m=>movie.Genre)</td>
                     <td>@Html.DisplayFor(m=>movie.Price)</td>
                     <td>
-                        <a class="btn btn-primary">รายละเอียด @(movie.Title)</a>
+                        @Html.ActionLink("รายละเอียด", "Index", "Movie",new{ id=@movie.Id,youtube=@movie.youtube}, new { @class = "btn btn-success" })
                     </td>
                 </tr>
-            }
-        </tbody>
+        } 
+            </tbody>
+
     </table>
-</div>
+ <iframe id="ytplayer" type="text/html" width="640" height="360"
+  src="@ViewData["youtube"]"
+  frameborder="0"></iframe>
+
+    </div>
